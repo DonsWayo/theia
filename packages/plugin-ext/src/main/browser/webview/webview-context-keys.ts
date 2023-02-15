@@ -36,10 +36,10 @@ export class WebviewContextKeys {
     @postConstruct()
     protected postConstruct(): void {
         this.activeWebviewPanelId = this.contextKeyService.createKey('activeWebviewPanelId', undefined);
-        this.applicationShell.onDidChangeCurrentWidget(this.handleDidChangeActiveWidget, this);
+        this.applicationShell.onDidChangeCurrentWidget(this.handleDidChangeCurrentWidget, this);
     }
 
-    protected handleDidChangeActiveWidget(change: FocusTracker.IChangedArgs<Widget>): void {
+    protected handleDidChangeCurrentWidget(change: FocusTracker.IChangedArgs<Widget>): void {
         if (change.newValue instanceof WebviewWidget) {
             this.activeWebviewPanelId.set(change.newValue.viewType);
         } else {
