@@ -82,6 +82,7 @@ import { PluginMenuCommandAdapter } from './menus/plugin-menu-command-adapter';
 import './theme-icon-override';
 import { PluginTerminalRegistry } from './plugin-terminal-registry';
 import { DnDFileContentStore } from './view/dnd-file-content-store';
+import { LanguagePackService, languagePackServicePath } from '../../common/language-pack-service';
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
 
@@ -246,4 +247,9 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(AuthenticationService).toService(PluginAuthenticationServiceImpl);
 
     bind(PluginTerminalRegistry).toSelf().inSingletonScope();
+
+    bind(LanguagePackService).toDynamicValue(ctx => {
+        const provider = ctx.container.get(WebSocketConnectionProvider);
+        return provider.createProxy<LanguagePackService>(languagePackServicePath);
+    }).inSingletonScope();
 });
