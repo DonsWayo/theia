@@ -48,18 +48,18 @@ export class StatusBarImpl extends ReactWidget implements StatusBar {
         this.addClass('noselect');
         // Hide the status bar until the `workbench.statusBar.visible` preference returns with a `true` value.
         this.hide();
-        this.preferences.ready.then(() => {
-            const preferenceValue = this.preferences.get<boolean>('workbench.statusBar.visible', true);
-            this.setHidden(!preferenceValue);
-        });
-        this.toDispose.push(
-            this.preferences.onPreferenceChanged(preference => {
-                if (preference.preferenceName === 'workbench.statusBar.visible') {
-                    this.setHidden(!preference.newValue);
-                }
-            })
-        );
-        this.toDispose.push(this.viewModel.onDidChange(() => this.debouncedUpdate()));
+        /*        this.preferences.ready.then(() => {
+                   const preferenceValue = this.preferences.get<boolean>('workbench.statusBar.visible', true);
+                   this.setHidden(!preferenceValue);
+               });
+               this.toDispose.push(
+                   this.preferences.onPreferenceChanged(preference => {
+                       if (preference.preferenceName === 'workbench.statusBar.visible') {
+                           this.setHidden(!preference.newValue);
+                       }
+                   })
+               );
+               this.toDispose.push(this.viewModel.onDidChange(() => this.debouncedUpdate())); */
     }
 
     protected debouncedUpdate = debounce(() => this.update(), 50);
@@ -178,7 +178,8 @@ export class StatusBarImpl extends ReactWidget implements StatusBar {
                 children.push(<span key={key}>{val}</span>);
             }
         });
-        const elementInnerDiv = <React.Fragment>{children}</React.Fragment>;
+        const elementInnerDiv = <React.Fragment><></></React.Fragment>;
+        // STATUS icons return React.createElement('div', { key: entry.id, ...this.createAttributes(entry) }, elementInnerDiv);
         return React.createElement('div', { key: entry.id, ...this.createAttributes(entry) }, elementInnerDiv);
     }
 

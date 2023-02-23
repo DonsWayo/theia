@@ -9,7 +9,12 @@
     "target": "electron",
     "frontend": {
       "config": {
-        "applicationName": "Theia Electron Example"
+        "applicationName": "Theia Electron Example",
+        "electron": {
+          "windowOptions": {
+            "titleBarStyle": "hidden"
+          }
+        }
       }
     }
   },

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/tslint/config */
+/* eslint-disable import/no-extraneous-dependencies */
 // *****************************************************************************
 // Copyright (C) 2022 Ericsson and others.
 //
@@ -24,7 +26,7 @@ import { DisposableCollection, Emitter, Event } from '../common';
 import { createDisposableListener } from './event-utils';
 import { URI } from '../common/uri';
 import { FileUri } from '../node/file-uri';
-
+import { initSplashScreen, Office } from '@theia/splashscreen';
 /**
  * Theia tracks the maximized state of Electron Browser Windows.
  */
@@ -63,13 +65,31 @@ export class TheiaElectronWindow {
         return this._window;
     }
 
+    protected _splashscreen: unknown;
+    get splashscreen() {
+        return this._splashscreen;
+    }
+
     protected closeIsConfirmed = false;
     protected applicationState: FrontendApplicationState = 'init';
 
     @postConstruct()
     protected init(): void {
+        this._splashscreen = initSplashScreen({
+            mainWindow: this._window,
+            //  icon: isDev ? resolve('assets/icon.ico') : undefined,
+            url: Office,
+            width: 500,
+            height: 300,
+            brand: 'My Brand',
+            productName: 'My App',
+            //      logo: resolve('assets/logo.svg'),
+            website: 'www.my-brand.com',
+            text: 'Initializing ...'
+        });
         this._window = new BrowserWindow(this.options);
         this._window.setMenuBarVisibility(false);
+        this._window.setWindowButtonVisibility(false);
         this.attachReadyToShow();
         this.restoreMaximizedState();
         this.attachCloseListeners();
@@ -81,7 +101,13 @@ export class TheiaElectronWindow {
      * Only show the window when the content is ready.
      */
     protected attachReadyToShow(): void {
-        this._window.once('ready-to-show', () => this._window.show());
+        this._window.once('ready-to-show', () => {
+            //  this._window.webContents.once('did-finish-load', () => {
+            // @ts-ignore TODO
+            this._splashscreen();
+            this._window.show();
+            //  });
+        });
     }
 
     protected attachCloseListeners(): void {

@@ -151,6 +151,9 @@
       "path": "packages/secondary-window"
     },
     {
+      "path": "packages/splashscreen"
+    },
+    {
       "path": "packages/task"
     },
     {

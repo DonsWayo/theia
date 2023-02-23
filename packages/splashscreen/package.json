@@ -1,0 +1,41 @@
+{
+  "name": "@theia/splashscreen",
+  "version": "1.34.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "description": "Theia - Task extension. This extension adds support for executing raw or terminal processes in the backend.",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "electron": "^23.1.1"
+  },
+  "license": "EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eclipse-theia/theia.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eclipse-theia/theia/issues"
+  },
+  "homepage": "https://github.com/eclipse-theia/theia",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "build": "theiaext build",
+    "clean": "theiaext clean",
+    "compile": "theiaext compile",
+    "lint": "theiaext lint",
+    "test": "theiaext test",
+    "watch": "theiaext watch"
+  },
+  "devDependencies": {
+    "@theia/ext-scripts": "1.34.0",
+    "electron": "^23.1.1"
+  },
+  "nyc": {
+    "extends": "../../configs/nyc.json"
+  }
+}

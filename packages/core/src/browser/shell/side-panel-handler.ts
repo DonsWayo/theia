@@ -251,7 +251,7 @@ export class SidePanelHandler {
         const containerLayout = new BoxLayout({ direction, spacing: 0 });
         const sidebarContainerLayout = new PanelLayout();
         const sidebarContainer = new Panel({ layout: sidebarContainerLayout });
-        sidebarContainer.addClass('theia-app-sidebar-container');
+        // sidebarContainer.addClass('theia-app-sidebar-container');
         sidebarContainerLayout.addWidget(this.topMenu);
         sidebarContainerLayout.addWidget(this.tabBar);
         sidebarContainerLayout.addWidget(this.bottomMenu);
