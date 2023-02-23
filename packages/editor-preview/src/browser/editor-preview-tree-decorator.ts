@@ -20,7 +20,6 @@ import { Emitter } from '@theia/core/lib/common/event';
 import { Tree } from '@theia/core/lib/browser/tree/tree';
 import {
     ApplicationShell,
-    DepthFirstTreeIterator,
     FrontendApplication,
     FrontendApplicationContribution,
     NavigatableWidget,
@@ -28,7 +27,6 @@ import {
     Widget,
 } from '@theia/core/lib/browser';
 import { Disposable } from '@theia/core/lib/common';
-import { OpenEditorNode } from '@theia/navigator/lib/browser/open-editors-widget/navigator-open-editors-tree-model';
 import { EditorPreviewWidget } from './editor-preview-widget';
 import { EditorPreviewManager } from './editor-preview-manager';
 
@@ -91,17 +89,7 @@ export class EditorPreviewTreeDecorator implements TreeDecorator, FrontendApplic
         const result = new Map<string, TreeDecoration.Data>();
         if (tree.root === undefined) {
             return result;
-        }
-        for (const node of new DepthFirstTreeIterator(tree.root)) {
-            if (OpenEditorNode.is(node)) {
-                const { widget } = node;
-                const isPreviewWidget = widget instanceof EditorPreviewWidget && widget.isPreview;
-                const decorations: TreeDecoration.Data = {
-                    fontData: { style: isPreviewWidget ? 'italic' : undefined }
-                };
-                result.set(node.id, decorations);
-            }
-        }
+        };
         return result;
     }
 }

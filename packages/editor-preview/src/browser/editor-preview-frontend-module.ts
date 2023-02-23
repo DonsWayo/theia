@@ -23,7 +23,6 @@ import { EditorManager } from '@theia/editor/lib/browser';
 import { EditorPreviewWidgetFactory } from './editor-preview-widget-factory';
 import { EditorPreviewContribution } from './editor-preview-contribution';
 import { CommandContribution, MenuContribution } from '@theia/core/lib/common';
-import { OpenEditorsTreeDecorator } from '@theia/navigator/lib/browser/open-editors-widget/navigator-open-editors-decorator-service';
 import { EditorPreviewTreeDecorator } from './editor-preview-tree-decorator';
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -40,7 +39,6 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(MenuContribution).toService(EditorPreviewContribution);
 
     bind(EditorPreviewTreeDecorator).toSelf().inSingletonScope();
-    bind(OpenEditorsTreeDecorator).toService(EditorPreviewTreeDecorator);
     bind(FrontendApplicationContribution).toService(EditorPreviewTreeDecorator);
     bindEditorPreviewPreferences(bind);
 });

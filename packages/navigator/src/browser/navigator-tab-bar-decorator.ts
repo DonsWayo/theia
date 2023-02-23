@@ -17,10 +17,9 @@
 import { injectable } from '@theia/core/shared/inversify';
 import { Emitter, Event } from '@theia/core/lib/common/event';
 import { TabBarDecorator } from '@theia/core/lib/browser/shell/tab-bar-decorator';
-import { ApplicationShell, FrontendApplication, FrontendApplicationContribution, Saveable, Title, ViewContainer, Widget } from '@theia/core/lib/browser';
+import { ApplicationShell, FrontendApplication, FrontendApplicationContribution, Saveable, Title, Widget } from '@theia/core/lib/browser';
 import { WidgetDecoration } from '@theia/core/lib/browser/widget-decoration';
 import { Disposable, DisposableCollection } from '@theia/core/lib/common/disposable';
-import { OpenEditorsWidget } from './open-editors-widget/navigator-open-editors-widget';
 
 @injectable()
 export class NavigatorTabBarDecorator implements TabBarDecorator, FrontendApplicationContribution {
@@ -48,13 +47,7 @@ export class NavigatorTabBarDecorator implements TabBarDecorator, FrontendApplic
     }
 
     decorate(title: Title<Widget>): WidgetDecoration.Data[] {
-        const { owner } = title;
-        if (owner instanceof ViewContainer && owner.getParts().find(part => part.wrapped instanceof OpenEditorsWidget)) {
-            const changes = this.getDirtyEditorsCount();
-            return changes > 0 ? [{ badge: changes }] : [];
-        } else {
-            return [];
-        }
+        return [];
     }
 
     protected getDirtyEditorsCount(): number {

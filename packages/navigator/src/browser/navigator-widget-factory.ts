@@ -23,7 +23,6 @@ import {
     WidgetManager
 } from '@theia/core/lib/browser';
 import { FILE_NAVIGATOR_ID } from './navigator-widget';
-import { OpenEditorsWidget } from './open-editors-widget/navigator-open-editors-widget';
 import { nls } from '@theia/core/lib/common/nls';
 
 export const EXPLORER_VIEW_CONTAINER_ID = 'explorer-view-container';
@@ -66,10 +65,8 @@ export class NavigatorWidgetFactory implements WidgetFactory {
             progressLocationId: 'explorer'
         });
         viewContainer.setTitleOptions(EXPLORER_VIEW_CONTAINER_TITLE_OPTIONS);
-        const openEditorsWidget = await this.widgetManager.getOrCreateWidget(OpenEditorsWidget.ID);
         const navigatorWidget = await this.widgetManager.getOrCreateWidget(FILE_NAVIGATOR_ID);
         viewContainer.addWidget(navigatorWidget, this.fileNavigatorWidgetOptions);
-        viewContainer.addWidget(openEditorsWidget, this.openEditorsWidgetOptions);
         return viewContainer;
     }
 }
